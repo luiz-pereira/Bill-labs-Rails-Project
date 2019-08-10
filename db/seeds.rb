@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Role.create({role: "admin_analyst"})
+Role.create({role: "admin_owner"})
+Role.create({role: "admin_master"})
+Role.create({role: "customer_owner"})
+Role.create({role: "customer_admin"})
+Role.create({role: "customer_view_only"})
+
+Product.create ({name: "IP VPN"})
+Product.create ({name: "1FL Business Lines"})
+Product.create ({name: "PRI"})
+Product.create ({name: "Internet Dedicated"})
+Product.create ({name: "Internet"})
+

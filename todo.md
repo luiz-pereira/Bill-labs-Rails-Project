@@ -3,8 +3,8 @@
 - run migrations
 - define validations on each table
 - create stupid home page - OK
-
-* create navbar with sign-in, etc
+- create navbar with sign-in, etc - OK
+* create seed for including default products and roles
 * create sessions controller
 * create sign-in page
 * create sign-up page
