@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 	root 'static#home'
 
 	get '/login' => "session#new"
+	post '/login' => "session#new"
 
 end

@@ -1,0 +1,31 @@
+<!-- Default form register -->
+
+<div class="container col-md-4 col-md-offset-4 centered">
+	<%= form_for @user, html: {class: 'text-center border border-light p-5'} do |f| %>
+			<p class="h4 mb-4 ">Sign up</p>
+
+			<%= f.text_field :name, class: 'form-control mb-4', placeholder: "Name" %>
+			<%= f.email_field :email, class: 'form-control mb-4', placeholder: "E-mail" %>
+			<%= f.password_field :password, class: 'form-control mb-4', placeholder: "Password" %>
+			<%= f.telephone_field :phone, class: 'form-control mb-4', placeholder: "Phone #" %>
+			<%= f.fields_for :company do |ff|%>
+				<%= ff.text_field :name, class: 'form-control mb-4', placeholder: "Company" %>
+			<% end %>
+			<%= f.text_field :name, class: 'form-control mb-4', placeholder: "Position" %>
+			<%= f.submit "Sign up", class: 'btn btn-info my-4 btn-block'%>
+
+			<p>or sign up with:</p>
+
+			<a type="button" class="light-blue-text mx-2">
+					<i class="fab fa-linkedin-in"></i>
+			</a>
+
+			<hr>
+
+			<!-- Terms of service -->
+			<p>By clicking
+					<em>Sign up</em> you agree to our
+					<a href="" target="_blank">terms of service</a>
+
+	<% end %>
+</div>

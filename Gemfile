@@ -66,3 +66,5 @@ gem "pry", "~> 0.12.2"
 gem "bootstrap", "~> 4.3"
 
 gem "jquery-rails", "~> 4.3"
+
+gem "bcrypt", "~> 3.1"
