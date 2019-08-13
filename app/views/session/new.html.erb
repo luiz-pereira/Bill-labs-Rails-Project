@@ -29,6 +29,12 @@
 </head>
 <body style="background-color: #666666;">
 
+	<% if flash[:alert] %>
+		<div class='alert alert-danger'>
+			<%= flash.now[:alert] %>
+		</div>
+	<% end %>
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -38,15 +44,15 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<%= f.email_field :email, class: 'input100' %>
+						<%= f.email_field :email, class: 'input100', required: true, autocomplete: "email" %>
 						<span class="focus-input100"></span>
 						<span class="label-input100">
 							<%= f.label :email %>
 						</span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<%= f.password_field :password, class: 'input100' %>
+					<div class="wrap-input100 validate-input">
+						<%= f.password_field :password, class: 'input100', required: true, autocomplete: "password"  %>
 						<span class="focus-input100"></span>
 						<span class="label-input100">
 							<%= f.label :password %>
