@@ -4,19 +4,31 @@ class SessionController < ApplicationController
 	end
 
 	def create
-		@user = User.find_by email: params[:session][:email]
-		if @user && @user.authenticate(params[:session][:password])
-			session[:user_id] = @user.id
-			redirect_to user_path(@user)
+		binding.pry
+		if auth
+			@user = User.find_or_create_user_linkedin(auth)
 		else
-			flash[:alert] = "User/password doesn't match any records. Please check."
-			render '/session/new'
+			unless found_user? && @user.authenticate(params[:session][:password])
+				flash[:alert] = "User not found. To create a new account, please 'Sign up'"
+				render '/session/new'
+			end
 		end
+		session[:user_id] = @user.id
 	end
 
 	def destroy
 		session.clear
 		redirect_to root_path
+	end
+
+private
+
+	def auth
+		request.env['omniauth.auth']
+	end
+
+	def found_user?
+		auth ? (@user = User.find_by email: auth[:info][:email]) : (@user = User.find_by email: params[:session][:email])
 	end
 
 end

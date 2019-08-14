@@ -68,3 +68,13 @@ gem "bootstrap", "~> 4.3"
 gem "jquery-rails", "~> 4.3"
 
 gem "bcrypt", "~> 3.1"
+
+gem "omniauth", "~> 1.9"
+
+gem "omniauth-linkedin-oauth2", "~> 1.0"
+
+gem "omniauth-facebook", "~> 5.0"
+
+gem "omniauth-google", "~> 1.0"
+
+gem "dotenv-rails", "~> 2.7"
