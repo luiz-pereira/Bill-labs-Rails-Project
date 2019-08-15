@@ -19,3 +19,15 @@ Product.create ({name: "PRI"})
 Product.create ({name: "Internet Dedicated"})
 Product.create ({name: "Internet"})
 
+Sector.create({sector: 'Telecommunications'})
+
+Company.create({name: 'Luiz Co.', sector: Sector.last})
+
+Status.create({status: 'New'})
+Status.create({status: 'Received'})
+Status.create({status: 'In progress'})
+Status.create({status: 'Pending documentation'})
+Status.create({status: 'Report complete'})
+Status.create({status: 'Sent to provider'})
+Status.create({status: 'Finished'})
+

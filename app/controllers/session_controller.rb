@@ -1,10 +1,10 @@
 class SessionController < ApplicationController
 
 	def new
+		logout!
 	end
 
 	def create
-		binding.pry
 		if auth
 			@user = User.find_or_create_user_linkedin(auth)
 		else
@@ -14,6 +14,7 @@ class SessionController < ApplicationController
 			end
 		end
 		session[:user_id] = @user.id
+		redirect_to user_path(@user)
 	end
 
 	def destroy

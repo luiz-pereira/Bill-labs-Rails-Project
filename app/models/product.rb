@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-	has_many :requests, through: :products_requests
+	has_many :requests
 	validates :name, uniqueness: true
 	validates :name, presence: true
 end

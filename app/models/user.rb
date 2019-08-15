@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-	has_many :requests
+	has_many :analyzed_requests, class_name: 'Request', foreign_key: 'analyst_id'
+	has_many :owned_requests, class_name: 'Request', foreign_key: 'owner_id'
 	belongs_to :role
 	belongs_to :company, optional: true
 
@@ -19,22 +20,13 @@ class User < ApplicationRecord
 			user.name = auth[:info][:first_name] + ' ' + auth[:info][:last_name]
 			user.name = user.name.gsub(/,.*/,'')
 			user.username = user.create_username
-			# I stopped here. I need to create the company with sector. And create a sector with a sector name.
-			@company = Company.find_or_create_by name: auth[:info][:first_name]
-			@company.save
-			user.company = @company
-			user.role = Role.find_by role: 'customer_admin'
+			user.company = Company.last #to be changed later
+			user.role = Role.find_by role: 'customer_admin' #to be changed later
 			user.password = '123'
 			user.linkedin = true
-			user.position = 'manager'
+			user.position = 'manager' #to be changed later
 		end
 		@user.save
 		@user
-		binding.pry
-	end
-
-	def linkedin?
-		binding.pry
-		self.linkedin
 	end
 end

@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
     User.find(session[:user_id])
 	end
 
+	def logout!
+		session.clear
+	end
+
 end

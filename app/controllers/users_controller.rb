@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
 	def new
+		logout!
 		@user = User.new
 	end
 
@@ -9,7 +10,7 @@ class UsersController < ApplicationController
 		@user.username = @user.create_username
 		@user.role = Role.find_by role: 'customer_admin'
 		if @user.valid?
-			@company = Company.find_or_create_by name: params[:user][:company][:name]
+			@company = Company.find_or_create_by name: params[:user][:company][:name], sector: Sector.last
 			@user.company = @company
 			@user.save
 			redirect_to user_path(@user)
@@ -22,6 +23,8 @@ class UsersController < ApplicationController
 		unless current_user
 			redirect_to login_path
 		end
+		@user = current_user
+		@requests = @user.owned_requests
 	end
 
 private

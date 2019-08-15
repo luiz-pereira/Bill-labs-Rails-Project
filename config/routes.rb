@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :requests
+
+
   resources :companies
-  resources :users
+	resources :users do
+		resources :requests
+	end
 	root 'static#home'
 
 	get '/login' => "session#new"
