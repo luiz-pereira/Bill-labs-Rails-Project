@@ -1,0 +1,57 @@
+<h1>Hello!</h1>
+<br>
+<h2>Here you can check your activities, include more documents and start new requests</h2>
+<br>
+<br>
+<br>
+
+<div class="dropdown">
+  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Start a new activity
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+		<% Product.all.each do |product| %>
+			<%= link_to product.name, "#{user_requests_path(@user)}?product=#{product.name}", method: :post, class: 'dropdown-item' %>
+		<% end %>
+  </div>
+</div>
+
+<br>
+
+<table class='table table-hover table-bordered text-center'>
+	<tr>
+		<thead class = 'thead-dark'>
+			<th class="w-auto">Date of request</th>
+			<th>Status</th>
+			<th>Products</th>
+			<th>Owner</th>
+			<th>Analyst</th>
+			<th>Documents</th>
+		</thead>
+	</tr>
+	<tbody>
+		<% @requests.each do |request| %>
+			<tr>
+				<td><%= request.created_at.strftime('%b %d, %Y')%></td>
+				<td><%= request.status.status %></td>
+				<td><%= request.product.name %></td>
+				<td><%= request.owner.username %></td>
+				<td><%= request.analyst_id %></td>
+				<td>
+					<ul>
+						<% request.documents.each do |document| %>
+							<li><%= document.document_name %></li>
+						<% end %>
+					</ul>
+					<%= link_to 'Upload document', '/test', class: 'btn btn-info' %>
+					<!-- the below will be used for uploading documents
+						<%= form_for current_user do |f| %>
+								<%= f.file_field :documents, class: 'btn btn-info'  %>
+						<% end %>
+					-->
+				</td>
+
+			</tr>
+		<% end %>
+	</tbody>
+</table>

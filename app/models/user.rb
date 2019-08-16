@@ -10,7 +10,17 @@ class User < ApplicationRecord
 	validates :email, :username, uniqueness: true
 
 	def create_username
-		self.name.split(' ').map(&:downcase).join('')
+		i = 0
+		username = self.name.split(' ').map(&:downcase).join('')
+		while User.find_by username: username
+			i +=1
+			username = username + i.to_s
+		end
+		username
+	end
+
+	def to_param
+		username
 	end
 
 	def self.find_or_create_user_linkedin(auth)

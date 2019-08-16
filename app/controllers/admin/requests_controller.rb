@@ -1,4 +1,4 @@
-class RequestsController < ApplicationController
+class Admin::RequestsController < Admin::BaseController
 
 	def new
 		redirect_to login_path if (!current_user || params[:user_id] != current_user.username)
