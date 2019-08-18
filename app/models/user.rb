@@ -39,4 +39,8 @@ class User < ApplicationRecord
 		@user.save
 		@user
 	end
+
+	def is_admin?
+		role.role.include?("admin")
+	end
 end

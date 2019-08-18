@@ -1,0 +1,53 @@
+<h1>Hello!</h1>
+<br>
+<h2>Here you can manage the admin users</h2>
+<br>
+<br>
+<br>
+
+
+<br>
+
+<table class='table table-hover table-bordered text-center'>
+	<tr>
+		<thead class = 'thead-dark'>
+			<th>User</th>
+			<th>username</th>
+			<th>Role</th>
+			<th>E-mail</th>
+			<th>Active requests</th>
+			<th>User active?</th>
+			<th>Actions</th>
+		</thead>
+	</tr>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.name %></td>
+				<td><%= user.username %></td>
+				<td><%= user.role.role %></td>
+				<td><%= user.email %></td>
+				<td><%= user.analyzed_requests.count %></td>
+				<td>
+					<% if user.active %>
+						<p>Active</p>
+						<%= link_to 'Deactivate', edit_admin_user_path(user), method: :post, class: 'btn btn-danger' %>
+					<% else	%>
+						<%= link_to 'Activate', edit_admin_user_path(user), method: :post, class: 'btn btn-sucess' %>
+					<% end %>
+				</td>
+				<td>
+					<div class="dropdown">
+						<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Action
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+								<%= link_to 'edit', edit_admin_user_path(user), method: :delete, class: 'dropdown-item' %>
+								<%= link_to 'delete', admin_user_path(user), method: :delete, class: 'dropdown-item' %>
+						</div>
+					</div>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

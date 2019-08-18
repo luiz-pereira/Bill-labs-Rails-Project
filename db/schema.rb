@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_15_010518) do
+ActiveRecord::Schema.define(version: 2019_08_18_213442) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_010518) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "linkedin"
+    t.boolean "active", default: true
   end
 
 end

@@ -1,36 +1,31 @@
 class Admin::UsersController < Admin::BaseController
+	before_action :is_admin_signed_in?
 
 	def new
 		logout!
 		@user = User.new
 	end
 
-	def create
-		@user = User.new (user_params)
-		@user.username = @user.create_username
-		@user.role = Role.find_by role: 'customer_admin'
-		if @user.valid?
-			@company = Company.find_or_create_by name: params[:user][:company][:name], sector: Sector.last
-			@user.company = @company
-			@user.save
-			redirect_to user_path(@user)
-		else
-			render new_user_path
-		end
-	end
-
 	def show
 		unless current_user
-			redirect_to login_path
+			redirect_to admin_login_path
 		end
+
 		@user = current_user
-		@requests = @user.owned_requests
+
+		case @user.role.role
+		when 'admin_analyst'
+			redirect_to admin_user_requests_path(@user)
+		when 'admin_master'
+			redirect_to admin_user_requests_path(@user)
+		when 'admin_owner'
+			redirect_to admin_users_path
+		end
 	end
 
-private
-	def user_params
-		params.require(:user).permit(:name, :email, :position, :phone, :password)
+	def index
+		@roles_admin = Role.where("role LIKE ?", "admin%").map(&:id)
+		@users = User.where(role_id: [@roles_admin])
 	end
-
 
 end

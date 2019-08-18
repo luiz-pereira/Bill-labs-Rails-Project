@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 		@user.username = @user.create_username
 		@user.role = Role.find_by role: 'customer_admin'
 		if @user.valid?
-			@company = Company.find_or_create_by name: params[:user][:company][:name], sector: Sector.last
+			@company = Company.find_or_create_by name: params[:user][:company][:name], sector: Sector.find(1)
 			@user.company = @company
 			@user.save
 			redirect_to user_path(@user)

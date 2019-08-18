@@ -8,13 +8,14 @@ Rails.application.routes.draw do
 
 	namespace :admin do
 		resources :companies
-		resources :users
-		resources :requests
+		resources :users do
+			resources :requests
+			resources :users, only: [:index, :new, :update, :destroy]
+		end
 		root 'static#home'
 		get '/login' => "session#new"
 		post '/login' => "session#create"
 		get '/logout' => "session#destroy"
-		get '/auth/linkedin/callback' => "session#create"
 	end
 
 	root 'static#home'
