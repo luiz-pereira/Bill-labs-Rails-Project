@@ -64,7 +64,7 @@ desired outcome:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+	- just bundle install and rails s, you should be directed to the root_path
 
-*
 
 
