@@ -8,9 +8,10 @@ Rails.application.routes.draw do
 
 	namespace :admin do
 		resources :companies
+		resources :requests
 		resources :users do
 			resources :requests
-			resources :users, only: [:index, :new, :update, :destroy]
+			resources :users
 		end
 		root 'static#home'
 		get '/login' => "session#new"

@@ -12,16 +12,23 @@
   <body>
 
 		<nav class="navbar navbar-light bg-light">
-			<a class="navbar-brand" href="#">Administration Area</a>
-
+			<%= link_to 'Administration Area', admin_root_path, class: 'navbar-brand' %>
+			<div class="nav-item text-center">
+				<% if current_user %>
+					<h4>Welcome, <%= current_user.name %></h4>
+					<small><%= link_to 'Log out', admin_login_path %></small>
+				<% end %>
+			</div>
 			<ul class="nav">
 				<% if current_user %>
 					<li class="nav-item active">
-						<h4>Welcome, <%= current_user.name %></h4>
+						<%= link_to 'Requests', admin_user_requests_path(current_user) , class: 'btn btn-warning' %>
 					</li>
-					<li class="nav-item active">
-						<%= link_to 'Log out', logout_path, class: 'nav-link' %>
-					</li>
+					<% if current_user.admin_owner? %>
+						<li class="nav-item active">
+							<%= link_to 'Users', admin_user_path(current_user) , class: 'btn btn-success' %>
+						</li>
+					<% end %>
 				<% else %>
 					<li class="nav-item">
 						<%= link_to 'Sign In', admin_login_path, class: "btn btn-outline-primary my-2 my-sm-0 ml-4"%>

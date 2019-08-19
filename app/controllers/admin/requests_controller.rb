@@ -1,24 +1,32 @@
 class Admin::RequestsController < Admin::BaseController
 	before_action :is_admin_signed_in?
 
-	def new
-		redirect_to login_path if (!current_user || params[:user_id] != current_user.username)
-
+	def index
 		@user = current_user
-		@request = Request.new
+		@companies = Company.all
+		case @user.role.role
+		when 'admin_analyst'
+			@requests = @user.analyzed_requests
+		else
+			@requests = Request.all
+		end
 	end
 
-	def create
-		redirect_to login_path if (!current_user || params[:user_id] != current_user.username)
-		@user = current_user
-		@request = @user.owned_requests.build
-		@request.status = Status.find_by status: 'New'
-		@request.company = @user.company
-		@request.product = Product.find_by name: params[:product]
-		@request.logs.build ({content: 'Request created'})
-		@user.save
-
-		redirect_to user_path(@user)
+	def update
+		@request = Request.find(params[:id])
+		if params[:analyst]
+			@request.analyst = User.find(params[:analyst])
+		end
+		if params[:status]
+			case params[:status]
+			when 'advance'
+				@request.status = Status.find(@request.status.next_status_id)
+			when 'back'
+				@request.status = Status.find(@request.status.previous_status_id)
+			end
+		end
+		@request.save
+		redirect_to admin_user_requests_path(current_user)
 	end
 
 end

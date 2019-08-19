@@ -41,6 +41,22 @@ class User < ApplicationRecord
 	end
 
 	def is_admin?
-		role.role.include?("admin")
+		role.role.include?("admin") && (active == true)
 	end
+
+	def admin_master?
+		if is_admin?
+			role.role != 'admin_analyst'
+		end
+	end
+
+	def admin_owner?
+		role.role == 'admin_owner'
+	end
+
+	def self.analysts
+		role = Role.find_by role: 'admin_analyst'
+		self.where(role_id: role.id)
+	end
+
 end

@@ -1,20 +1,9 @@
 <h1>Hello!</h1>
 <br>
-<h2>Here you can check your activities, include more documents and start new requests</h2>
+<h2>Here you can check the requests attributted to you and take action</h2>
 <br>
 <br>
 <br>
-
-<div class="dropdown">
-  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Start a new activity
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-		<% Product.all.each do |product| %>
-			<%= link_to product.name, "#{user_requests_path(@user)}?product=#{product.name}", method: :post, class: 'dropdown-item' %>
-		<% end %>
-  </div>
-</div>
 
 <br>
 
@@ -27,6 +16,7 @@
 			<th>Owner</th>
 			<th>Analyst</th>
 			<th>Documents</th>
+			<th>Actions</th>
 		</thead>
 	</tr>
 	<tbody>
@@ -54,7 +44,23 @@
 						<% end %>
 					-->
 				</td>
-
+				<td>
+					<div class="dropdown">
+						<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Action
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+							<%= link_to 'Advance status', "#{admin_request_path(request)}?status=advance", method: :patch, class: 'dropdown-item' %>
+							<%= link_to 'Undo status', "#{admin_request_path(request)}?status=back", method: :patch, class: 'dropdown-item' %>
+							<% if @user.admin_master?%>
+								<div class="dropdown-divider"></div>
+								<% User.analysts.each do |analyst| %>
+									<%= link_to "Assign #{analyst.name}", "#{admin_request_path(request)}?analyst=#{analyst.id}", method: :patch, class: 'dropdown-item' %>
+								<% end %>
+							<% end %>
+						</div>
+					</div>
+				</td>
 			</tr>
 		<% end %>
 	</tbody>
