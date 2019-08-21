@@ -12,7 +12,8 @@
 		<thead class = 'thead-dark'>
 			<th class="w-auto">Date of request</th>
 			<th>Status</th>
-			<th>Products</th>
+			<th>Product</th>
+			<th>Market Price</th>
 			<th>Owner</th>
 			<th>Analyst</th>
 			<th>Documents</th>
@@ -25,6 +26,12 @@
 				<td><%= request.created_at.strftime('%b %d, %Y')%></td>
 				<td><%= request.status.status %></td>
 				<td><%= request.product.name %></td>
+				<td>
+					<%= form_for request.product do |f| %>
+						<%= f.text_field :market_price, class: 'text-center' %>
+						<%= f.submit 'update', class: 'btn btn-secondary btn-sm' %>
+					<% end %>
+				</td>
 				<td><%= request.owner.username %></td>
 				<% if request.analyst %>
 					<td><%= request.analyst.username %></td>

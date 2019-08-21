@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
 
-  resources :companies
+	resources :companies
+	resources :products
 	resources :users do
 		resources :requests
 	end
@@ -25,5 +26,7 @@ Rails.application.routes.draw do
 	post '/login' => "session#create"
 	get '/logout' => "session#destroy"
 	get '/auth/linkedin/callback' => "session#create"
+
+
 
 end

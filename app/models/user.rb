@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 	has_many :analyzed_requests, class_name: 'Request', foreign_key: 'analyst_id'
 	has_many :owned_requests, class_name: 'Request', foreign_key: 'owner_id'
+	has_many :products, through: :analyzed_requests, foreign_key: 'analyzed_products'
 	belongs_to :role
 	belongs_to :company, optional: true
 
@@ -57,6 +58,10 @@ class User < ApplicationRecord
 	def self.analysts
 		role = Role.find_by role: 'admin_analyst'
 		self.where(role_id: role.id)
+	end
+
+	def self.most_busy_analyst
+		self.joins(:analyzed_requests).group(:analyst_id).order("COUNT('request_id') DESC").limit(1)
 	end
 
 end
