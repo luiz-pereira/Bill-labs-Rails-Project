@@ -1,6 +1,4 @@
 # README
-
-The whole idea of this project is to firm my concepts of rails
 a) nested forms
 B) nested resources
 c) asset pipeline
